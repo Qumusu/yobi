@@ -6,11 +6,11 @@
     const tweetDivided = document.getElementById('tweet-area');
 
     /**
-    * 指定した要素の子どもを全て削除する
+    * 指定した要素の子どもを全て除去する
     * @param {HTMLElement} element HTMLの要素
     */
     function removeAllChildren(element) {
-        while (element.firstChild) { // 子どもの要素があるかぎり削除
+        while (element.firstChild) { // 子どもの要素があるかぎり除去
             element.removeChild(element.firstChild);
         }
     }
@@ -32,12 +32,23 @@
         paragraph.innerText = result;
         resultDivided.appendChild(paragraph);
 
-        // TODO ツイートエリアの作成
+        // ツイートエリアの作成
         removeAllChildren(tweetDivided);
+        const anchor = document.createElement('a');
+        const hrefValue = 'https://twitter.com/intent/tweet?button_hashtag='
+            + encodeURIComponent('あなたのいいところ')
+            + '&ref_src=twsrc%5Etfw';
+        anchor.setAttribute('href', hrefValue);
+        anchor.className = 'twitter-hashtag-button';
+        anchor.setAttribute('data-text', result);
+        anchor.innerText = 'Tweet #あなたのいいところ';
+        tweetDivided.appendChild(anchor);
+
+        twttr.widgets.load();
     };
 
     const answers = [
-        '{userName}のいいところは声です。{userName}の特徴的な声は皆を惹きつけ、心に残ります。',
+        '{userName}のいいところは声です。{userName}の特徴的な声はみなを惹きつけ、心に残ります。',
         '{userName}のいいところはまなざしです。{userName}に見つめられた人は、気になって仕方がないでしょう。',
         '{userName}のいいところは情熱です。{userName}の情熱に周りの人は感化されます。',
         '{userName}のいいところは厳しさです。{userName}の厳しさがものごとをいつも成功に導きます。',

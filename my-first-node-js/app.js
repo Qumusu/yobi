@@ -1,7 +1,9 @@
 'use strict';
-const number = process.argv[2] || 0;
-let sum = 0;
-for (let i = 1; i <= number; i++) {
-    sum = sum + i;
-}
-console.log(sum);
+const fs = require('fs');
+const readline = require('readline');
+const rs = fs.ReadStream('./popu-pref.csv');
+const rl = readline.createInterface({ 'input': rs, 'output': {} });
+rl.on('line', (lineString) => {
+    console.log(lineString);
+});
+rl.resume();
